@@ -154,8 +154,8 @@ void alienMaker(int total,int position) {
 
  for (int i = 0; i < total; i ++ ) {
     
-   int row=i/position;
-   int col=i%position;
+   int row=int(i/position);
+   int col=int(i%position);
    int a=50+col*40 ;
    int b=50+row*50;
   
