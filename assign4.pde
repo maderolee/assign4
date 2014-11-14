@@ -15,6 +15,10 @@ int point;               //Game Score
 int expoInit;            //Explode Init Size
 int countBulletFrame;    //Bullet Time Counter
 int bulletNum;           //Bullet Order Number
+void printText(){
+  fill(95,194,226);
+ 
+}
 
 /*--------Put Variables Here---------*/
 
@@ -45,7 +49,14 @@ void draw() {
 
   case GAME_START:
     /*---------Print Text-------------*/
-    text("press enter", 320, 240); // replace this with printText
+    printText();
+      textSize(60);
+      text("GALIXAN",200,240);
+      textSize(20);
+      text("Press ENTER to Start",230,280);
+      
+      
+    
     /*--------------------------------*/
     break;
 
@@ -71,13 +82,21 @@ void draw() {
 
   case GAME_PAUSE:
     /*---------Print Text-------------*/
-
+     printText();
+     textSize(40);
+     text("PAUSE",320,240);
+     textSize(20);
+     text("Press ENTER to Return",320,280);
     /*--------------------------------*/
     break;
 
   case GAME_WIN:
     /*---------Print Text-------------*/
-
+     printText();
+     textSize(40);
+     text("WINNER",320,300);
+     textSize(20);
+     text("SCORE=",320,340);
     /*--------------------------------*/
     winAnimate();
     break;
@@ -85,7 +104,11 @@ void draw() {
   case GAME_LOSE:
     loseAnimate();
     /*---------Print Text-------------*/
-
+     printText();
+     textSize(40);
+     text("BOOM",320,240);
+     textSize(20);
+     text("You are dead",320,280);
     /*--------------------------------*/
     break;
   }
@@ -114,13 +137,43 @@ void keyPressed() {
 }
 
 /*---------Make Alien Function-------------*/
-void alienMaker() {
+void alienMaker(int total,int position) {
+  
   aList[0]= new Alien(50, 50);
+  
+  int[] xhaha = new int[53]; 
+  int[] yhaha = new int[53];
+ 
+
+  for (int i = 0; i < total; i ++ ) {
+    xhaha[i] = 50; 
+    yhaha[i] = 50;
+  }
+
+ 
+
+ for (int i = 0; i < total; i ++ ) {
+    
+   int row=i/position;
+   int col=i%position;
+   int a=50+col*40 ;
+   int b=50+row*50;
+  
+    aList[i]= new Alien(a,b);
+   
+ }
+    
+
+ 
 }
+
 
 void drawLife() {
   fill(230, 74, 96);
   text("LIFE:", 36, 455);
+  ellipse(78,459,15,15);
+  ellipse(103,459,15,15);
+  ellipse(128,459,15,15);
   /*---------Draw Ship Life---------*/
 }
 
@@ -297,7 +350,10 @@ void reset() {
   
 
   /*-----------Call Make Alien Function--------*/
-  alienMaker();
+
+  alienMaker(53,12);
+
+    
 
   ship.posX = width/2;
   ship.posY = 460;
@@ -314,6 +370,12 @@ void statusCtrl() {
 
     case GAME_START:
       status = GAME_PLAYING;
+      break;
+    case GAME_PLAYING:
+      status=GAME_PAUSE;
+      break;
+    case GAME_PAUSE:
+      status=GAME_PLAYING;
       break;
 
       /*-----------add things here--------*/
@@ -343,4 +405,3 @@ void cheatKeys() {
     }
   }
 }
-
